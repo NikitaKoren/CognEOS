@@ -21,23 +21,6 @@ public:
         eosio::print("Student added ", std_fname);
     }
 
-    // void updatestudent(eosio::name user_account, std::string std_fname, std::string std_lname)
-    // {
-    //     require_auth(user_account);
-    //     for(auto& std : _students)
-    //     {
-    //         if(user_account == std.std_eos_name)
-    //         {
-    //             _students.modify(std, user_account, [&] (auto& pstd) {
-    //                 pstd.std_fname = std_fname;
-    //                 pstd.std_lname = std_lname;
-    //             });
-    //             print("Student Updated ", std_lname);
-    //             break;
-    //         }
-    //     }       
-    // }
-
     void coursecompleted(eosio::name from_account, eosio::name to_account, uint64_t rewards)
     {
         //require_auth(from_account);

@@ -82,9 +82,16 @@ class [[eosio::contract]] cogneos : public eosio::contract
         _stdcourses.delstdcourse(user, stdcourseid);
     }
 
+    [[eosio::action]]
     void addhours(eosio::name user, uint64_t stdcourseid, uint64_t hours)
     {
         _stdcourses.addhours(user, stdcourseid, hours);
+    }
+
+    [[eosio::action]]
+    void unlockreward(eosio::name user_account, uint64_t stdcourseid)
+    {
+        _stdcourses.unlockreward(user_account, stdcourseid);
     }
 
     private:
@@ -98,4 +105,4 @@ class [[eosio::contract]] cogneos : public eosio::contract
 EOSIO_DISPATCH(cogneos, (addstudent)(coursecomp)
                         (addcourse)(deletecourse)(updatetotava)
                         (addteacher)
-                        (enrollcourse)(markcompleted)(teachercheck)(sponsorcheck)(delstdcourse)(addhours))
+                        (enrollcourse)(markcompleted)(teachercheck)(sponsorcheck)(delstdcourse)(addhours)(unlockreward))
