@@ -72,29 +72,31 @@ class TeacherComponent extends Component {
    * Construct Course Card 
    */
   generateCard = ({
+    stdcourseid,
     course_id, 
-    course_desc,
     course_name,
-    duration,
-    rewards,
-    teacher_id,
-    total_avail
+    std_id,
+    enrolled,
+    hoursworked,
+    completed,
+    teacherapp,
+    sponsorapp
   }) => {
     const { classes } = this.props;
     return (
       <Card className={classes.card} key={course_id}>
         <CardContent>
           <Typography variant="headline" component="h2">
-            {course_id}
+            Student ID: {std_id}
           </Typography>
           <Typography style={{fontSize:12}} color="textSecondary" gutterBottom>
             {course_name}
           </Typography>
           <Typography component="pre">
-            {course_desc}
+            {hoursworked}
           </Typography>
           <LinearProgress variant="determinate" value={Math.floor((Math.random() * 100) + 1)} />
-          <StyledButton onClick={(event) => this.enroll(event, course_id)}>
+          <StyledButton onClick={(event) => this.approve(event, stdcourseid)}>
             Approve
           </StyledButton>
         </CardContent>
@@ -105,7 +107,7 @@ class TeacherComponent extends Component {
   /**
    * Enroll Student into the course
    */
-  async enroll(event, course_id) {
+  async approve(event, stdcourseid) {
         // stop default behaviour
         event.preventDefault();
 
@@ -120,15 +122,14 @@ class TeacherComponent extends Component {
           const result = await api.transact({
             actions: [{
               account: "cogneos",
-              name: 'enrollcourse',
+              name: 'teachercheck',
               authorization: [{
                 actor: 'cogneos',
                 permission: 'active',
               }],
               data: {
                 user: 'cogneos',
-                std_id: 0,
-                course_id,
+                stdcourseid,
               },
             }]
           }, {
@@ -154,7 +155,7 @@ class TeacherComponent extends Component {
       "json": true,
       "code": "cogneos",   // contract who owns the table
       "scope": "cogneos",  // scope of the table
-      "table": "coursestb",    // name of the table as specified by the contract abi
+      "table": "stdcoursetb",    // name of the table as specified by the contract abi
       "limit": 100,
     }).then(result => this.setState({ courseTable: result.rows }));
   }

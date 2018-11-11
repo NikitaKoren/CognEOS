@@ -60,7 +60,9 @@ class StudentComponent extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      courseTable: []
+      courseTable: [],
+      studentTable: [],
+      studentCoursesTable: []
     };
   }
 
@@ -89,22 +91,48 @@ class StudentComponent extends Component {
           <Typography component="pre">
             {course_desc}
           </Typography>
-          <Button style={{padding: 0}} onClick={(event) => this.enroll(event, course_id)}>
-            Enroll
-          </Button>
+          {this.generateButtonAction({course_id, course_name})}
         </CardContent>
       </Card>
+    );
+  }
+
+  generateButtonAction = ({course_id, course_name}) => {
+
+    const { studentCoursesTable } = this.state
+    let buttonStatus = 'Enroll'
+    
+    const courseStatus = (studentCoursesTable || []).find((enrolledCourse) => enrolledCourse.course_id === course_id) || {};
+    
+    if (courseStatus.enrolled) {
+      buttonStatus = 'Enrolled'
+    }
+
+    if (courseStatus.teacherapp) {
+      buttonStatus = 'Unlock'
+    }
+
+    const actions = {
+      'Enroll': this.enroll,
+      'Unlock': this.unlock,
+    }
+
+    return (
+      <Button style={{padding: 0}} onClick={(event) => buttonStatus !== 'Enrolled' && actions[buttonStatus](event, course_id, course_name)}>
+        {buttonStatus}
+      </Button>
     );
   }
 
   /**
    * Enroll Student into the course
    */
-  async enroll(event, course_id) {
+  async enroll(event, course_id, course_name) {
 
         // stop default behaviour
         event.preventDefault();
-
+        console.log('enroll');
+        return
         const privateKey = '5KUBosGNs6vBfF47Cqy432tDsjTjfXeEf4KMYb3husVVxDtibPJ';
     
         // eosjs function call: connect to the blockchain
@@ -123,8 +151,9 @@ class StudentComponent extends Component {
               }],
               data: {
                 user: 'cogneos',
-                std_id: 0,
                 course_id,
+                course_name,
+                std_id: 0
               },
             }]
           }, {
@@ -142,6 +171,11 @@ class StudentComponent extends Component {
         }
   }
 
+  async unlock () {
+    console.log('unlock');
+    return
+  }
+
   // gets table data from the blockchain
   // and saves it into the component state: "noteTable"
   getTable() {
@@ -155,14 +189,37 @@ class StudentComponent extends Component {
     }).then(result => this.setState({ courseTable: result.rows }));
   }
 
+  getStudentAccount() {
+    const rpc = new JsonRpc(endpoint);
+    rpc.get_table_rows({
+      "json": true,
+      "code": "cogneos",   // contract who owns the table
+      "scope": "cogneos",  // scope of the table
+      "table": "studentstb",    // name of the table as specified by the contract abi
+      "limit": 100,
+    }).then(result => this.setState({ studentTable: result.rows }));
+  }
+
+  getStudentCourses() {
+    const rpc = new JsonRpc(endpoint);
+    rpc.get_table_rows({
+      "json": true,
+      "code": "cogneos",   // contract who owns the table
+      "scope": "cogneos",  // scope of the table
+      "table": "stdcoursetb",    // name of the table as specified by the contract abi
+      "limit": 100,
+    }).then(result => this.setState({ studentCoursesTable: result.rows }));
+  }
+
   componentDidMount() {
     this.getTable();
+    this.getStudentAccount();
+    this.getStudentCourses();
   }
 
   render() {
-    let { courseTable } = this.state;
-    
-    console.log(courseTable);
+    let { courseTable, studentTable, studentCoursesTable } = this.state;
+
     courseTable = courseTable && courseTable.length ? courseTable : [{
         course_desc: "EOS Fundamentals",
         course_id: 0,
@@ -174,8 +231,7 @@ class StudentComponent extends Component {
     }]
 
     let courses = courseTable.map((card) => this.generateCard(card));
-
-    console.log(courses);
+    let studentAccount = studentTable.find((student) => student.std_id === 0) || {};
 
     return (
       <div>
@@ -185,9 +241,9 @@ class StudentComponent extends Component {
             <Typography variant="title" color="inherit">
               CognEOS
             </Typography>
-            <Typography style={{'margin-left': 800}} component="pre">
+            <Typography style={{marginLeft: 800}} component="pre">
                 <img src={require('../img/if_boy_403024.png')} width="40"/>
-              <Link to="/student/account"> 200 EOS</Link>
+              <Link to="/student/0/account"> {studentAccount.avail_rewards} EOS</Link>
             </Typography>
           </Toolbar>
         </AppBar>
