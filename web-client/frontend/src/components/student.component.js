@@ -160,9 +160,11 @@ class StudentComponent extends Component {
             blocksBehind: 3,
             expireSeconds: 30,
           });
-    
-          console.log(result);
+
           this.getTable();
+          this.getStudentAccount();
+          this.getStudentCourses();
+
         } catch (e) {
           console.log('Caught exception: ' + e);
           if (e instanceof RpcError) {
