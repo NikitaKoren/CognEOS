@@ -76,6 +76,12 @@ class [[eosio::contract]] cogneos : public eosio::contract
         _stdcourses.markcompleted(user, stdcourseid);
     }
 
+    [[eosio::action]]
+    void delstdcourse(eosio::name user, uint64_t stdcourseid)
+    {
+        _stdcourses.delstdcourse(user, stdcourseid);
+    }
+
     private:
     students    _students;
     courses     _courses;
@@ -87,4 +93,4 @@ class [[eosio::contract]] cogneos : public eosio::contract
 EOSIO_DISPATCH(cogneos, (addstudent)(coursecomp)
                         (addcourse)(deletecourse)(updatetotava)
                         (addteacher)
-                        (enrollcourse)(markcompleted)(teachercheck)(sponsorcheck))
+                        (enrollcourse)(markcompleted)(teachercheck)(sponsorcheck)(delstdcourse))
