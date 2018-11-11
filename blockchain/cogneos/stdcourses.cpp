@@ -17,6 +17,16 @@ public:
         });
     }
 
+    void markcompleted(eosio::name user, uint64_t stdcourseid)
+    {
+        require_auth(user);
+        auto iterator = _stdcourses.find( stdcourseid );
+        eosio_assert(iterator != _stdcourses.end(), "Course does not exist");
+        _stdcourses.modify(iterator, user, [&] (auto& stdcourse) {
+            stdcourse.completed = 1;
+        });
+    }
+
     void teachercheck(eosio::name user, uint64_t stdcourseid)
     {
         require_auth(user);

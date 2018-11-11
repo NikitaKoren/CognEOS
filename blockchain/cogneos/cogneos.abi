@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sat Nov 10 21:18:58 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sat Nov 10 23:27:44 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -123,6 +123,20 @@
             ]
         },
         {
+            "name": "markcompleted",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                },
+                {
+                    "name": "stdcourseid",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
             "name": "sponsorcheck",
             "base": "",
             "fields": [
@@ -167,6 +181,145 @@
                     "type": "uint64"
                 }
             ]
+        },
+        {
+            "name": "studentstb",
+            "base": "",
+            "fields": [
+                {
+                    "name": "std_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "std_eos_name",
+                    "type": "name"
+                },
+                {
+                    "name": "std_fname",
+                    "type": "string"
+                },
+                {
+                    "name": "std_lname",
+                    "type": "string"
+                },
+                {
+                    "name": "avail_rewards",
+                    "type": "uint64"
+                },
+                {
+                    "name": "total_rewards",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "teacherstb",
+            "base": "",
+            "fields": [
+                {
+                    "name": "tearcher_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "tearcher_eos_id",
+                    "type": "name"
+                },
+                {
+                    "name": "teacher_fname",
+                    "type": "string"
+                },
+                {
+                    "name": "teacher_lname",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "coursestb",
+            "base": "",
+            "fields": [
+                {
+                    "name": "course_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "teacher_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "course_name",
+                    "type": "string"
+                },
+                {
+                    "name": "course_desc",
+                    "type": "string"
+                },
+                {
+                    "name": "duration",
+                    "type": "uint64"
+                },
+                {
+                    "name": "rewards",
+                    "type": "uint64"
+                },
+                {
+                    "name": "total_avail",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "sponcerstb",
+            "base": "",
+            "fields": [
+                {
+                    "name": "sponcer_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "sponcer_eos_id",
+                    "type": "name"
+                },
+                {
+                    "name": "sponcer_name",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "stdcoursestb",
+            "base": "",
+            "fields": [
+                {
+                    "name": "stdcourseid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "course_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "std_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "enrolled",
+                    "type": "uint64"
+                },
+		{
+                    "name": "completed",
+                    "type": "uint64"
+                },
+
+                {
+                    "name": "teacherapp",
+                    "type": "uint64"
+                },
+                {
+                    "name": "sponsorapp",
+                    "type": "uint64"
+                }
+            ]
         }
     ],
     "types": [],
@@ -202,6 +355,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "markcompleted",
+            "type": "markcompleted",
+            "ricardian_contract": ""
+        },
+        {
             "name": "sponsorcheck",
             "type": "sponsorcheck",
             "ricardian_contract": ""
@@ -217,7 +375,43 @@
             "ricardian_contract": ""
         }
     ],
-    "tables": [],
+    "tables": [
+        {
+	"name": "studentstb",
+    "type" : "studentstb"
+        "index_type": "i64",
+	"key_names" : [],
+      	"key_types" : []
+        },
+        {
+            "name": "teacherstb",
+            "type": "teacherstb",
+            "index_type": "i64",
+	"key_names" : [],
+      	"key_types" : []
+        },
+        {
+            "name": "coursestb",
+            "type": "coursestb"
+            "index_type": "i64",
+	"key_names" : [],
+      	"key_types" : []
+        },
+        {
+            "name": "sponcerstb",
+            "type": "sponcerstb"
+            "index_type": "i64",
+	"key_names" : [],
+      	"key_types" : []
+        },
+        {
+            "name": "stdcoursestb",
+            "type": "stdcoursestb"
+            "index_type": "i64",
+	"key_names" : [],
+      	"key_types" : []
+        }
+    ],
     "ricardian_clauses": [],
     "abi_extensions": []
 }
