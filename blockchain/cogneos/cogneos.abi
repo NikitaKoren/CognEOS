@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 08:34:52 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 08:54:18 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -91,6 +91,40 @@
             ]
         },
         {
+            "name": "coursestb",
+            "base": "",
+            "fields": [
+                {
+                    "name": "course_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "teacher_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "course_name",
+                    "type": "string"
+                },
+                {
+                    "name": "course_desc",
+                    "type": "string"
+                },
+                {
+                    "name": "duration",
+                    "type": "uint64"
+                },
+                {
+                    "name": "rewards",
+                    "type": "int64"
+                },
+                {
+                    "name": "total_avail",
+                    "type": "int64"
+                }
+            ]
+        },
+        {
             "name": "deletecourse",
             "base": "",
             "fields": [
@@ -155,6 +189,24 @@
             ]
         },
         {
+            "name": "sponcerstb",
+            "base": "",
+            "fields": [
+                {
+                    "name": "sponcer_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "sponcer_eos_id",
+                    "type": "name"
+                },
+                {
+                    "name": "sponcer_name",
+                    "type": "string"
+                }
+            ]
+        },
+        {
             "name": "sponsorcheck",
             "base": "",
             "fields": [
@@ -164,6 +216,78 @@
                 },
                 {
                     "name": "stdcourseid",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "stdcoursetb",
+            "base": "",
+            "fields": [
+                {
+                    "name": "stdcourseid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "course_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "course_name",
+                    "type": "string"
+                },
+                {
+                    "name": "std_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "enrolled",
+                    "type": "uint64"
+                },
+                {
+                    "name": "hoursworked",
+                    "type": "uint64"
+                },
+                {
+                    "name": "completed",
+                    "type": "uint64"
+                },
+                {
+                    "name": "teacherapp",
+                    "type": "uint64"
+                },
+                {
+                    "name": "sponsorapp",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "studentstb",
+            "base": "",
+            "fields": [
+                {
+                    "name": "std_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "std_eos_name",
+                    "type": "name"
+                },
+                {
+                    "name": "std_fname",
+                    "type": "string"
+                },
+                {
+                    "name": "std_lname",
+                    "type": "string"
+                },
+                {
+                    "name": "avail_rewards",
+                    "type": "int64"
+                },
+                {
+                    "name": "total_rewards",
                     "type": "uint64"
                 }
             ]
@@ -179,6 +303,28 @@
                 {
                     "name": "stdcourseid",
                     "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "teacherstb",
+            "base": "",
+            "fields": [
+                {
+                    "name": "tearcher_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "tearcher_eos_id",
+                    "type": "name"
+                },
+                {
+                    "name": "teacher_fname",
+                    "type": "string"
+                },
+                {
+                    "name": "teacher_lname",
+                    "type": "string"
                 }
             ]
         },
@@ -257,190 +403,43 @@
             "name": "updatetotava",
             "type": "updatetotava",
             "ricardian_contract": ""
-        },
-        {
-            "name": "studentstb",
-            "base": "",
-            "fields": [
-                {
-                    "name": "std_id",
-                    "type": "uint64"
-                },
-                {
-                    "name": "std_eos_name",
-                    "type": "name"
-                },
-                {
-                    "name": "std_fname",
-                    "type": "string"
-                },
-                {
-                    "name": "std_lname",
-                    "type": "string"
-                },
-                {
-                    "name": "avail_rewards",
-                    "type": "uint64"
-                },
-                {
-                    "name": "total_rewards",
-                    "type": "uint64"
-                }
-            ]
-        },
-        {
-            "name": "teacherstb",
-            "base": "",
-            "fields": [
-                {
-                    "name": "tearcher_id",
-                    "type": "uint64"
-                },
-                {
-                    "name": "tearcher_eos_id",
-                    "type": "name"
-                },
-                {
-                    "name": "teacher_fname",
-                    "type": "string"
-                },
-                {
-                    "name": "teacher_lname",
-                    "type": "string"
-                }
-            ]
-        },
-        {
-            "name": "coursestb",
-            "base": "",
-            "fields": [
-                {
-                    "name": "course_id",
-                    "type": "uint64"
-                },
-                {
-                    "name": "teacher_id",
-                    "type": "uint64"
-                },
-                {
-                    "name": "course_name",
-                    "type": "string"
-                },
-                {
-                    "name": "course_desc",
-                    "type": "string"
-                },
-                {
-                    "name": "duration",
-                    "type": "uint64"
-                },
-                {
-                    "name": "rewards",
-                    "type": "uint64"
-                },
-                {
-                    "name": "total_avail",
-                    "type": "uint64"
-                }
-            ]
-        },
-        {
-            "name": "sponcerstb",
-            "base": "",
-            "fields": [
-                {
-                    "name": "sponcer_id",
-                    "type": "uint64"
-                },
-                {
-                    "name": "sponcer_eos_id",
-                    "type": "name"
-                },
-                {
-                    "name": "sponcer_name",
-                    "type": "string"
-                }
-            ]
-        },
-        {
-            "name": "stdcoursetb",
-            "base": "",
-            "fields": [
-                {
-                    "name": "stdcourseid",
-                    "type": "uint64"
-                },
-                {
-                    "name": "course_id",
-                    "type": "uint64"
-                },
-                {
-                    "name": "course_name",
-                    "type": "string"
-                },
-                {
-                    "name": "std_id",
-                    "type": "uint64"
-                },
-                {
-                    "name": "enrolled",
-                    "type": "uint64"
-                },
-		{
-                    "name": "hoursworked",
-                    "type": "uint64"
-                },
-		{
-                    "name": "completed",
-                    "type": "uint64"
-                },
-
-                {
-                    "name": "teacherapp",
-                    "type": "uint64"
-                },
-                {
-                    "name": "sponsorapp",
-                    "type": "uint64"
-                }
-            ]
         }
     ],
     "tables": [
         {
-	"name": "studentstb",
-    "type" : "studentstb"
-        "index_type": "i64",
-	"key_names" : [],
-      	"key_types" : []
+            "name": "coursestb",
+            "type": "coursestb",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "sponcerstb",
+            "type": "sponcerstb",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "stdcoursetb",
+            "type": "stdcoursetb",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "studentstb",
+            "type": "studentstb",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
         },
         {
             "name": "teacherstb",
             "type": "teacherstb",
             "index_type": "i64",
-	"key_names" : [],
-      	"key_types" : []
-        },
-        {
-            "name": "coursestb",
-            "type": "coursestb"
-            "index_type": "i64",
-	"key_names" : [],
-      	"key_types" : []
-        },
-        {
-            "name": "sponcerstb",
-            "type": "sponcerstb"
-            "index_type": "i64",
-	"key_names" : [],
-      	"key_types" : []
-        },
-        {
-            "name": "stdcoursetb",
-            "type": "stdcoursetb"
-            "index_type": "i64",
-	"key_names" : [],
-      	"key_types" : []
+            "key_names": [],
+            "key_types": []
         }
     ],
     "ricardian_clauses": [],
