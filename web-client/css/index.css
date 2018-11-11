@@ -2,6 +2,7 @@
   --jumbotron-padding-y: 3rem;
 }
 
+
 .jumbotron {
   padding-top: var(--jumbotron-padding-y);
   padding-bottom: var(--jumbotron-padding-y);
@@ -20,8 +21,10 @@
 }
 
 .jumbotron-heading {
-  font-weight: 300;
+  font-weight: 500;
+  font-size: 500%;
 }
+
 
 .jumbotron .container {
   max-width: 40rem;
@@ -35,3 +38,28 @@ footer {
 footer p {
   margin-bottom: .25rem;
 }
+
+
+
+.user {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.one {
+  background-image: url('http://placehold.it/400x200');
+}
+
+.two {
+  background-image: url('http://placehold.it/200x200');
+}
+
+.three {
+  background-image: url('http://placehold.it/200x400');
+}	
