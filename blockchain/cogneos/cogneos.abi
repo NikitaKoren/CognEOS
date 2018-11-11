@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 08:13:35 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 08:34:52 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -129,6 +129,10 @@
                 {
                     "name": "course_id",
                     "type": "uint64"
+                },
+                {
+                    "name": "course_name",
+                    "type": "string"
                 },
                 {
                     "name": "std_id",
@@ -359,7 +363,7 @@
             ]
         },
         {
-            "name": "stdcoursestb",
+            "name": "stdcoursetb",
             "base": "",
             "fields": [
                 {
@@ -371,11 +375,19 @@
                     "type": "uint64"
                 },
                 {
+                    "name": "course_name",
+                    "type": "string"
+                },
+                {
                     "name": "std_id",
                     "type": "uint64"
                 },
                 {
                     "name": "enrolled",
+                    "type": "uint64"
+                },
+		{
+                    "name": "hoursworked",
                     "type": "uint64"
                 },
 		{
@@ -424,7 +436,7 @@
       	"key_types" : []
         },
         {
-            "name": "stdcoursestb",
+            "name": "stdcoursetb",
             "type": "stdcoursestb"
             "index_type": "i64",
 	"key_names" : [],

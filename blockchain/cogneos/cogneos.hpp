@@ -34,20 +34,22 @@ struct [[eosio::table]] teacherstb {
 };
 typedef eosio::multi_index<"teacherstb"_n, teacherstb> teacher_index;
 
-struct [[eosio::table]] stdcoursestb {
+struct [[eosio::table]] stdcoursetb {
 
     uint64_t    stdcourseid;
     uint64_t    course_id;
+    std::string course_name;
     uint64_t    std_id;
     uint64_t    enrolled;
+    uint64_t    hoursworked;
     uint64_t    completed;
     uint64_t    teacherapp;
     uint64_t    sponsorapp;
     auto primary_key() const { return stdcourseid; } // getter for primary key
 
-    EOSLIB_SERIALIZE(stdcoursestb, (stdcourseid)(course_id)(std_id)(enrolled)(completed)(teacherapp)(sponsorapp))
+    EOSLIB_SERIALIZE(stdcoursetb, (stdcourseid)(course_id)(course_name)(std_id)(enrolled)(hoursworked)(completed)(teacherapp)(sponsorapp))
 };
-typedef eosio::multi_index<"stdcoursestb"_n, stdcoursestb> stdcoursestb_index;
+typedef eosio::multi_index<"stdcoursetb"_n, stdcoursetb> stdcoursestb_index;
 
 struct [[eosio::table]] coursestb {
 
