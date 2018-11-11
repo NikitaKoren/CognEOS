@@ -14,9 +14,10 @@ class Index extends Component {
       <div>
         <Router>
           <div>
-            <Route path='/student/courses/' component={StudentComponent} />
-            <Route path='/teacher/students' component={TeacherComponent} />
-            <Route path='/student/account/' component={StudentAccount} />
+            <Route path='/student/0/courses/' component={StudentComponent} />
+            <Route path='/student/0/account/' component={StudentAccount} />
+            <Route path='/student/0/unlock-tutorial/' component={StudentAccount} />
+            <Route path='/teacher/1/students' component={TeacherComponent} />
           </div>
         </Router>
       </div>
