@@ -42,6 +42,7 @@ body, input, button {
 }
 
 .login {
+  text-align: center;
   padding: 15px;
   width: 400px;
   min-height: 400px;
