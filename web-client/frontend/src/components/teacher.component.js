@@ -87,7 +87,7 @@ class TeacherComponent extends Component {
       <Card className={classes.card} key={course_id}>
         <CardContent>
           <Typography variant="headline" component="h2">
-            Student ID: {std_id} | Course ID: {course_id}
+            Nikita Koren, course id: {course_id}
           </Typography>
           <Typography style={{fontSize:12}} color="textSecondary" gutterBottom>
             {course_name}
