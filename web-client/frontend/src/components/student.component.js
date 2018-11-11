@@ -181,7 +181,7 @@ class StudentComponent extends Component {
       <div>
         <AppBar position="static" style={{color:"#fff"}}>
           <Toolbar>
-            <img src='../img/logo-small.png'/>
+            <img src={require('../img/logo_small.png')}/>
             <Typography variant="title" color="inherit">
               CognEOS
             </Typography>
