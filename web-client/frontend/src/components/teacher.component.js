@@ -164,7 +164,17 @@ class TeacherComponent extends Component {
   }
 
   render() {
-    const { courseTable } = this.state;
+    let { courseTable } = this.state;
+
+    courseTable = courseTable && courseTable.length ? courseTable : [{
+        course_desc: "EOS Fundamentals",
+        course_id: 0,
+        course_name: "EOS Fundamentals",
+        duration: 40,
+        rewards: 20,
+        teacher_id: 0,
+        total_avail: 0
+    }]
 
     let courses = courseTable.map((card) => this.generateCard(card));
 

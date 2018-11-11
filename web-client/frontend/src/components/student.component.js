@@ -21,8 +21,8 @@ const accounts = [];
 // set up styling classes using material-ui "withStyles"
 const styles = theme => ({
   card: {
-    margin: 20,
-    width: 250,
+    margin: 40,
+    width: 300,
     display: 'inline-block'
   },
   paper: {
@@ -40,6 +40,7 @@ const styles = theme => ({
     marginBottom: 0,
   },
   button: {
+      color: "blue",
     width: 50
   }
 });
@@ -165,7 +166,17 @@ class StudentComponent extends Component {
   }
 
   render() {
-    const { courseTable } = this.state;
+    let { courseTable } = this.state;
+
+    courseTable = courseTable && courseTable.length ? courseTable : [{
+        course_desc: "EOS Fundamentals",
+        course_id: 0,
+        course_name: "EOS Fundamentals",
+        duration: 40,
+        rewards: 20,
+        teacher_id: 0,
+        total_avail: 0
+    }]
 
     let courses = courseTable.map((card) => this.generateCard(card));
 
@@ -173,18 +184,20 @@ class StudentComponent extends Component {
 
     return (
       <div>
-        <AppBar position="static" color="default">
+        <AppBar position="static" style={{color:"#fff"}}>
           <Toolbar>
+            <img src={require('/Users/young/Dropbox/TECH/Blockchain/EOS/CognEOS/web-client/frontend/src/img/logo-small.png')}/>
             <Typography variant="title" color="inherit">
-              CognEOS Student Portal
+              CognEOS
             </Typography>
             <Typography style={{'margin-left': 800}} component="pre">
-              <Link to="/student/account">200 EOS</Link>
+                <img src={require('/Users/young/Dropbox/TECH/Blockchain/EOS/CognEOS/web-client/frontend/src/img/if_boy_403024.png')} width="40"/>
+              <Link to="/student/account"> 200 EOS</Link>
             </Typography>
           </Toolbar>
         </AppBar>
-        <StyledTypography variant="title" color="inherit">
-          Courses
+        <StyledTypography variant="display1" color="inherit">
+          My Courses
         </StyledTypography>
         {courses}
       </div>
