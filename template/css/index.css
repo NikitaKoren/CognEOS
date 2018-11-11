@@ -43,8 +43,8 @@ footer p {
 
 .user {
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
 
   background-repeat: no-repeat;
@@ -52,14 +52,14 @@ footer p {
   background-size: cover;
 }
 
-.one {
-  background-image: url('http://placehold.it/400x200');
+.onepic {
+  background-image: url('img/teacher1.jpg');
 }
 
-.two {
+.twopic {
   background-image: url('http://placehold.it/200x200');
 }
 
-.three {
+.threepic {
   background-image: url('http://placehold.it/200x400');
 }	
