@@ -87,7 +87,7 @@ class TeacherComponent extends Component {
       <Card className={classes.card} key={course_id}>
         <CardContent>
           <Typography variant="headline" component="h2">
-            Student ID: {std_id}
+            Student ID: {std_id} | Course ID: {course_id}
           </Typography>
           <Typography style={{fontSize:12}} color="textSecondary" gutterBottom>
             {course_name}
@@ -136,8 +136,7 @@ class TeacherComponent extends Component {
             blocksBehind: 3,
             expireSeconds: 30,
           });
-    
-          console.log(result);
+
           this.getTable();
         } catch (e) {
           console.log('Caught exception: ' + e);
