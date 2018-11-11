@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import { Api, JsonRpc, RpcError, JsSignatureProvider } from 'eosjs'; // https://github.com/EOSIO/eosjs
 import { TextDecoder, TextEncoder } from 'text-encoding';
 
@@ -16,9 +15,6 @@ import Button from '@material-ui/core/Button';
 // eosio endpoint
 const endpoint = "http://localhost:7777";
 
-// NEVER store private keys in any source code in your real life development
-// This is for demo purposes only!
-const accounts = [];
 // set up styling classes using material-ui "withStyles"
 const styles = theme => ({
   card: {
@@ -45,14 +41,6 @@ const styles = theme => ({
     width: 50
   }
 });
-
-
-const StyledTypography = withStyles({
-  root: {
-    textAlign: 'center',
-    margin: 40
-  }
-})(Typography)
 
 
 // StudentComponent
@@ -93,7 +81,7 @@ class StudentComponent extends Component {
           </Typography>
           <Typography component="pre" marginBottom="20">
             Sponsored by: 
-         <img src={require('../img/bluchain.png')} width="180"/>
+         <img alt='img' src={require('../img/bluchain.png')} width="180"/>
         </Typography>
           <div>
             {this.generateButtonAction({course_id, course_name})}
@@ -153,7 +141,7 @@ class StudentComponent extends Component {
         const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
 
         try {
-          const result = await api.transact({
+          await api.transact({
             actions: [{
               account: "cogneos",
               name: 'enrollcourse',
@@ -197,7 +185,7 @@ class StudentComponent extends Component {
         const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
 
         try {
-          const result = await api.transact({
+          await api.transact({
             actions: [{
               account: "cogneos",
               name: 'unlockreward',
@@ -269,7 +257,7 @@ class StudentComponent extends Component {
   }
 
   render() {
-    let { courseTable, studentTable, studentCoursesTable } = this.state;
+    let { courseTable, studentTable } = this.state;
 
     courseTable = courseTable && courseTable.length ? courseTable : [{
         course_desc: "Sponsored by ",
@@ -288,19 +276,22 @@ class StudentComponent extends Component {
       <div>
         <AppBar position="static" style={{color:"#fff"}}>
           <Toolbar>
-            <img src={require('../img/logo_small.png')}/>
+            <img alt='img' src={require('../img/logo_small.png')}/>
             <Typography variant="title" color="inherit">
               CognEOS
             </Typography>
                 <Typography style={{textAlign: "right", flex: 1, alignItems: 'center'}} component="pre">
                   <div>
-                    <img src={require('../img/if_boy_403024.png')} width="40"/>
-                      <img src={require('../img/eos.png')} width="30"/>
+                    <img alt='img' src={require('../img/if_boy_403024.png')} width="40"/>
+                      <img alt='img' src={require('../img/eos.png')} width="30"/>
                       <div style={{
                           display: 'inline-block',
-                          width: '500'
+                          width: 30
                       }}>
                           <a style={{
+                            position: 'absolute',
+                            top: 24,
+                            right: 15,
                             fontSize: 20,
                             textDecoration: 'none',
                             color: 'white'

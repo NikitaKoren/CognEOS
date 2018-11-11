@@ -15,9 +15,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 // eosio endpoint
 const endpoint = "http://localhost:7777";
 
-// NEVER store private keys in any source code in your real life development
-// This is for demo purposes only!
-const accounts = [];
 // set up styling classes using material-ui "withStyles"
 const styles = theme => ({
   card: {
@@ -44,21 +41,6 @@ const styles = theme => ({
   }
 });
 
-const StyledButton = withStyles({
-  root: {
-    padding: 0,
-  },
-})(Button)
-
-const StyledTypography = withStyles({
-  root: {
-    textAlign: 'center',
-    margin: 20
-  }
-})(Typography)
-
-
-// StudentComponent
 class TeacherComponent extends Component {
 
   constructor(props) {
@@ -66,6 +48,26 @@ class TeacherComponent extends Component {
     this.state = {
       courseTable: []
     };
+  }
+
+  generateButtonAction = ({stdcourseid}) => {
+    const { courseTable } = this.state
+    let buttonStatus = 'Approve'
+
+    const courseStatus = (courseTable || []).find((enrolledCourse) => enrolledCourse.stdcourseid === stdcourseid) || {};
+
+    if (courseStatus.teacherapp) {
+      buttonStatus = 'Approved'
+    }
+
+    return (
+      <Button style={{
+        marginTop: '5px',
+        padding: '5px, 10px'
+      }} onClick={(event) => buttonStatus !== 'Approved' && this.approve(event, {stdcourseid})}>
+        {buttonStatus}
+      </Button>
+    );
   }
 
   /**
@@ -92,13 +94,8 @@ class TeacherComponent extends Component {
           <Typography style={{fontSize:12}} color="textSecondary" gutterBottom>
             {course_name}
           </Typography>
-          <Typography component="pre">
-            {hoursworked}
-          </Typography>
-          <LinearProgress variant="determinate" value={Math.floor((Math.random() * 100) + 1)} />
-          <StyledButton onClick={(event) => this.approve(event, stdcourseid)}>
-            Approve
-          </StyledButton>
+          <LinearProgress variant="determinate" value={100} />
+          {this.generateButtonAction({stdcourseid})}
         </CardContent>
       </Card>
     );
@@ -107,7 +104,7 @@ class TeacherComponent extends Component {
   /**
    * Enroll Student into the course
    */
-  async approve(event, stdcourseid) {
+  async approve(event, {stdcourseid}) {
         // stop default behaviour
         event.preventDefault();
 
@@ -119,7 +116,7 @@ class TeacherComponent extends Component {
         const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
 
         try {
-          const result = await api.transact({
+          await api.transact({
             actions: [{
               account: "cogneos",
               name: 'teachercheck',
@@ -178,21 +175,22 @@ class TeacherComponent extends Component {
 
     let courses = courseTable.map((card) => this.generateCard(card));
 
-    console.log(courses);
-
     return (
       <div>
         <AppBar position="static" style={{color:"#fff"}}>
             <Toolbar>
-                <img src={require('../img/logo_small.png')}/>
+                <img alt='img' src={require('../img/logo_small.png')}/>
                 <Typography variant="title" color="inherit">
               CognEOS Teacher Portal
             </Typography>
           </Toolbar>
         </AppBar>
-        <StyledTypography variant="title" color="inherit">
+        <Typography style={{
+              textAlign: 'center',
+              margin: 20,
+        }} variant="display2" color="inherit">
           Students
-        </StyledTypography>
+        </Typography>
         {courses}
       </div>
     );
