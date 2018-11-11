@@ -45,12 +45,6 @@ const styles = theme => ({
   }
 });
 
-const StyledButton = withStyles({
-  root: {
-    padding: 0,
-  },
-})(Button);
-
 
 const StyledTypography = withStyles({
   root: {
@@ -95,9 +89,9 @@ class StudentComponent extends Component {
           <Typography component="pre">
             {course_desc}
           </Typography>
-          <StyledButton onClick={(event) => this.enroll(event, course_id)}>
+          <Button style={{padding: 0}} onClick={(event) => this.enroll(event, course_id)}>
             Enroll
-          </StyledButton>
+          </Button>
         </CardContent>
       </Card>
     );
@@ -107,7 +101,7 @@ class StudentComponent extends Component {
    * Enroll Student into the course
    */
   async enroll(event, course_id) {
-    console.log('enroll');
+
         // stop default behaviour
         event.preventDefault();
 
@@ -167,7 +161,8 @@ class StudentComponent extends Component {
 
   render() {
     let { courseTable } = this.state;
-
+    
+    console.log(courseTable);
     courseTable = courseTable && courseTable.length ? courseTable : [{
         course_desc: "EOS Fundamentals",
         course_id: 0,
@@ -186,19 +181,22 @@ class StudentComponent extends Component {
       <div>
         <AppBar position="static" style={{color:"#fff"}}>
           <Toolbar>
-            <img src={require('/Users/young/Dropbox/TECH/Blockchain/EOS/CognEOS/web-client/frontend/src/img/logo-small.png')}/>
+            <img src={require('../img/logo_small.png')}/>
             <Typography variant="title" color="inherit">
               CognEOS
             </Typography>
             <Typography style={{'margin-left': 800}} component="pre">
-                <img src={require('/Users/young/Dropbox/TECH/Blockchain/EOS/CognEOS/web-client/frontend/src/img/if_boy_403024.png')} width="40"/>
+                <img src={require('../img/if_boy_403024.png')} width="40"/>
               <Link to="/student/account"> 200 EOS</Link>
             </Typography>
           </Toolbar>
         </AppBar>
-        <StyledTypography variant="display1" color="inherit">
+        <Typography style={{
+              textAlign: 'center',
+              margin: 20
+        }} variant="display1" color="inherit">
           My Courses
-        </StyledTypography>
+        </Typography>
         {courses}
       </div>
     );
