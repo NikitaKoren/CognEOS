@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 08:54:18 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 09:49:34 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -28,6 +28,24 @@
                 },
                 {
                     "name": "reward",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "addhours",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                },
+                {
+                    "name": "stdcourseid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "hours",
                     "type": "uint64"
                 }
             ]
@@ -329,6 +347,20 @@
             ]
         },
         {
+            "name": "unlockreward",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user_account",
+                    "type": "name"
+                },
+                {
+                    "name": "stdcourseid",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
             "name": "updatetotava",
             "base": "",
             "fields": [
@@ -352,6 +384,11 @@
         {
             "name": "addcourse",
             "type": "addcourse",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "addhours",
+            "type": "addhours",
             "ricardian_contract": ""
         },
         {
@@ -397,6 +434,11 @@
         {
             "name": "teachercheck",
             "type": "teachercheck",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "unlockreward",
+            "type": "unlockreward",
             "ricardian_contract": ""
         },
         {
