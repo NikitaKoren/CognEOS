@@ -103,7 +103,7 @@ class StudentComponent extends Component {
     let buttonStatus = 'Enroll'
     
     const courseStatus = (studentCoursesTable || []).find((enrolledCourse) => enrolledCourse.course_id === course_id) || {};
-    
+
     if (courseStatus.enrolled) {
       buttonStatus = 'Enrolled'
     }
@@ -112,13 +112,17 @@ class StudentComponent extends Component {
       buttonStatus = 'Unlock'
     }
 
+    if (courseStatus.completed) {
+      buttonStatus = 'Completed'
+    }
+
     const actions = {
-      'Enroll': this.enroll,
-      'Unlock': this.unlock,
+      'Enroll': this.enroll.bind(this),
+      'Unlock': this.unlock.bind(this),
     }
 
     return (
-      <Button style={{padding: 0}} onClick={(event) => buttonStatus !== 'Enrolled' && actions[buttonStatus](event, course_id, course_name)}>
+      <Button style={{padding: 0}} onClick={(event) => buttonStatus !== 'Enrolled' && actions[buttonStatus](event, {course_id, course_name, stdcourseid: courseStatus.stdcourseid})}>
         {buttonStatus}
       </Button>
     );
@@ -127,12 +131,10 @@ class StudentComponent extends Component {
   /**
    * Enroll Student into the course
    */
-  async enroll(event, course_id, course_name) {
-
+  async enroll (event, {course_id, course_name}) {
+        debugger
         // stop default behaviour
         event.preventDefault();
-        console.log('enroll');
-        return
         const privateKey = '5KUBosGNs6vBfF47Cqy432tDsjTjfXeEf4KMYb3husVVxDtibPJ';
     
         // eosjs function call: connect to the blockchain
@@ -173,14 +175,51 @@ class StudentComponent extends Component {
         }
   }
 
-  async unlock () {
-    console.log('unlock');
-    return
+  async unlock (event, {stdcourseid}) {
+
+        // stop default behaviour
+        event.preventDefault();
+        const privateKey = '5KUBosGNs6vBfF47Cqy432tDsjTjfXeEf4KMYb3husVVxDtibPJ';
+    
+        // eosjs function call: connect to the blockchain
+        const rpc = new JsonRpc(endpoint);
+        const signatureProvider = new JsSignatureProvider([privateKey]);
+        const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
+
+        try {
+          const result = await api.transact({
+            actions: [{
+              account: "cogneos",
+              name: 'unlockreward',
+              authorization: [{
+                actor: 'cogneos',
+                permission: 'active',
+              }],
+              data: {
+                user_account: 'cogneos',
+                stdcourseid,
+              },
+            }]
+          }, {
+            blocksBehind: 3,
+            expireSeconds: 30,
+          });
+
+          this.getTable();
+          this.getStudentAccount();
+          this.getStudentCourses();
+
+        } catch (e) {
+          console.log('Caught exception: ' + e);
+          if (e instanceof RpcError) {
+            console.log(JSON.stringify(e.json, null, 2));
+          }
+        }
   }
 
   // gets table data from the blockchain
   // and saves it into the component state: "noteTable"
-  getTable() {
+  getTable = () => {
     const rpc = new JsonRpc(endpoint);
     rpc.get_table_rows({
       "json": true,
@@ -191,7 +230,7 @@ class StudentComponent extends Component {
     }).then(result => this.setState({ courseTable: result.rows }));
   }
 
-  getStudentAccount() {
+  getStudentAccount = () => {
     const rpc = new JsonRpc(endpoint);
     rpc.get_table_rows({
       "json": true,
@@ -202,7 +241,7 @@ class StudentComponent extends Component {
     }).then(result => this.setState({ studentTable: result.rows }));
   }
 
-  getStudentCourses() {
+  getStudentCourses = () => {
     const rpc = new JsonRpc(endpoint);
     rpc.get_table_rows({
       "json": true,
