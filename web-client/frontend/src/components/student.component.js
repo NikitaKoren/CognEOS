@@ -83,18 +83,27 @@ class StudentComponent extends Component {
     return (
       <Card className={classes.card} key={course_id}>
         <CardContent>
-          <Typography variant="headline" component="h2">
-            {course_id}
-          </Typography>
-          <Typography variant="headline" gutterBottom>
-            {course_name}
+          <Typography style={{
+              width: 250,
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis'
+          }} variant="headline" gutterBottom>
+          {course_id} : {course_name}
           </Typography>
           <Typography component="pre" marginBottom="20">
-            {course_desc}
+            Sponsored by: 
          <img src={require('../img/bluchain.png')} width="180"/>
         </Typography>
-          {this.generateButtonAction({course_id, course_name})}
-          {rewards}
+          <div>
+            {this.generateButtonAction({course_id, course_name})}
+            <div style={{
+              float: 'right',
+              padding: 10
+            }}>
+              {rewards} EOS (reward)
+            </div>
+          </div>
         </CardContent>
       </Card>
     );
@@ -124,7 +133,7 @@ class StudentComponent extends Component {
     }
 
     return (
-      <Button style={{padding: 0}} onClick={(event) => buttonStatus !== 'Enrolled' && actions[buttonStatus](event, {course_id, course_name, stdcourseid: courseStatus.stdcourseid})}>
+      <Button style={{padding: '0, 10px'}} onClick={(event) => buttonStatus !== 'Enrolled' && actions[buttonStatus](event, {course_id, course_name, stdcourseid: courseStatus.stdcourseid})}>
         {buttonStatus}
       </Button>
     );
@@ -134,7 +143,6 @@ class StudentComponent extends Component {
    * Enroll Student into the course
    */
   async enroll (event, {course_id, course_name}) {
-        debugger
         // stop default behaviour
         event.preventDefault();
         const privateKey = '5KUBosGNs6vBfF47Cqy432tDsjTjfXeEf4KMYb3husVVxDtibPJ';
@@ -284,15 +292,21 @@ class StudentComponent extends Component {
             <Typography variant="title" color="inherit">
               CognEOS
             </Typography>
-                <Typography style={{textAlign: "right", flex: 1}} component="pre">
+                <Typography style={{textAlign: "right", flex: 1, alignItems: 'center'}} component="pre">
+                  <div>
                     <img src={require('../img/if_boy_403024.png')} width="40"/>
-                    <img src={require('../img/eos.png')} width="30"/>
-                    <div style={{
-                        display: 'inline-block',
-                        width: '500'
-                    }}>
-                        <Link to="/student/0/account"> {studentAccount.avail_rewards}200</Link>
-                    </div>
+                      <img src={require('../img/eos.png')} width="30"/>
+                      <div style={{
+                          display: 'inline-block',
+                          width: '500'
+                      }}>
+                          <a style={{
+                            fontSize: 20,
+                            textDecoration: 'none',
+                            color: 'white'
+                          }}> {studentAccount.avail_rewards}</a>
+                      </div>
+                  </div>
             </Typography>
           </Toolbar>
         </AppBar>
