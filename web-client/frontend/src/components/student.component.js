@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Api, JsonRpc, RpcError, JsSignatureProvider } from 'eosjs'; // https://github.com/EOSIO/eosjs
 import { TextDecoder, TextEncoder } from 'text-encoding';
 
+
 // material-ui dependencies
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -36,8 +37,8 @@ const styles = theme => ({
   },
   pre: {
     background: "#ccc",
-    padding: 10,
-    marginBottom: 0,
+    padding: 20,
+    marginBottom: 20,
   },
   button: {
       color: "blue",
@@ -49,7 +50,7 @@ const styles = theme => ({
 const StyledTypography = withStyles({
   root: {
     textAlign: 'center',
-    margin: 20
+    margin: 40
   }
 })(Typography)
 
@@ -85,20 +86,21 @@ class StudentComponent extends Component {
           <Typography variant="headline" component="h2">
             {course_id}
           </Typography>
-          <Typography style={{fontSize:12}} color="textSecondary" gutterBottom>
+          <Typography variant="headline" gutterBottom>
             {course_name}
           </Typography>
-          <Typography component="pre">
+          <Typography component="pre" marginBottom="20">
             {course_desc}
-          </Typography>
+         <img src={require('../img/bluchain.png')} width="180"/>
+        </Typography>
           {this.generateButtonAction({course_id, course_name})}
+          {rewards}
         </CardContent>
       </Card>
     );
   }
 
   generateButtonAction = ({course_id, course_name}) => {
-
     const { studentCoursesTable } = this.state
     let buttonStatus = 'Enroll'
     
@@ -221,11 +223,11 @@ class StudentComponent extends Component {
     let { courseTable, studentTable, studentCoursesTable } = this.state;
 
     courseTable = courseTable && courseTable.length ? courseTable : [{
-        course_desc: "EOS Fundamentals",
+        course_desc: "Sponsored by ",
         course_id: 0,
         course_name: "EOS Fundamentals",
         duration: 40,
-        rewards: 20,
+        rewards: 40 +" EOS",
         teacher_id: 0,
         total_avail: 0
     }]
@@ -241,17 +243,23 @@ class StudentComponent extends Component {
             <Typography variant="title" color="inherit">
               CognEOS
             </Typography>
-            <Typography style={{marginLeft: 800}} component="pre">
-                <img src={require('../img/if_boy_403024.png')} width="40"/>
-              <Link to="/student/0/account"> {studentAccount.avail_rewards} EOS</Link>
+                <Typography style={{textAlign: "right", flex: 1}} component="pre">
+                    <img src={require('../img/if_boy_403024.png')} width="40"/>
+                    <img src={require('../img/eos.png')} width="30"/>
+                    <div style={{
+                        display: 'inline-block',
+                        width: '500'
+                    }}>
+                        <Link to="/student/0/account"> {studentAccount.avail_rewards}200</Link>
+                    </div>
             </Typography>
           </Toolbar>
         </AppBar>
         <Typography style={{
               textAlign: 'center',
-              margin: 20
-        }} variant="display1" color="inherit">
-          My Courses
+              margin: 20,
+        }} variant="display2" color="inherit">
+          Courses
         </Typography>
         {courses}
       </div>

@@ -183,9 +183,10 @@ class TeacherComponent extends Component {
 
     return (
       <div>
-        <AppBar position="static" color="default">
-          <Toolbar>
-            <Typography variant="title" color="inherit">
+        <AppBar position="static" style={{color:"#fff"}}>
+            <Toolbar>
+                <img src={require('../img/logo_small.png')}/>
+                <Typography variant="title" color="inherit">
               CognEOS Teacher Portal
             </Typography>
           </Toolbar>
