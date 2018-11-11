@@ -92,6 +92,12 @@ public:
                         std.avail_rewards += bountyval;
                     });
                 eosio::print("Student Updated ", stdcourseid);
+                auto iterator1 = _stdcourses.find( stdcourseid );
+                eosio_assert(iterator1 != _stdcourses.end(), "Course does not exist");
+                _stdcourses.modify(iterator1, user_account, [&] (auto& stdcourse) {
+                    stdcourse.completed = 1;
+                });
+
                 break;
             }
         }       
