@@ -437,7 +437,7 @@
         },
         {
             "name": "stdcoursetb",
-            "type": "stdcoursestb"
+            "type": "stdcoursetb"
             "index_type": "i64",
 	"key_names" : [],
       	"key_types" : []
