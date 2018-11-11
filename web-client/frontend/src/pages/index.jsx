@@ -9,6 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
@@ -23,6 +24,8 @@ const accounts = [];
 const styles = theme => ({
   card: {
     margin: 20,
+    width: 250,
+    display: 'inline-block'
   },
   paper: {
     ...theme.mixins.gutters(),
@@ -38,7 +41,17 @@ const styles = theme => ({
     padding: 10,
     marginBottom: 0,
   },
+  button: {
+    width: 50
+  }
 });
+
+const StyledButton = withStyles({
+  root: {
+    padding: 0,
+  },
+})(Button);
+
 
 // Index component
 class Index extends Component {
@@ -49,6 +62,89 @@ class Index extends Component {
       noteTable: [] // to store the table rows from smart contract
     };
     this.handleFormEvent = this.handleFormEvent.bind(this);
+  }
+
+  /**
+   * Construct Course Card 
+   */
+  generateCard = ({
+    course_id, 
+    course_desc,
+    course_name,
+    duration,
+    rewards,
+    teacher_id,
+    total_avail
+  }) => {
+    const { classes } = this.props;
+    return (
+      <Card className={classes.card} key={course_id}>
+        <CardContent>
+          <Typography variant="headline" component="h2">
+            {course_id}
+          </Typography>
+          <Typography style={{fontSize:12}} color="textSecondary" gutterBottom>
+            {course_name}
+          </Typography>
+          <Typography component="pre">
+            {course_desc}
+          </Typography>
+          <StyledButton onClick={(event) => this.enroll(event, course_id)}>
+            Enroll
+          </StyledButton>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  /**
+   * Enroll Student into the course
+   */
+  async enroll(event, course_id) {
+    console.log('enroll');
+        // stop default behaviour
+        event.preventDefault();
+
+        // collect form data
+        // let account = event.target.account.value;
+        // let privateKey = event.target.privateKey.value;
+        // let note = event.target.note.value;
+
+        const privateKey = '5KUBosGNs6vBfF47Cqy432tDsjTjfXeEf4KMYb3husVVxDtibPJ';
+    
+        // eosjs function call: connect to the blockchain
+        const rpc = new JsonRpc(endpoint);
+        const signatureProvider = new JsSignatureProvider([privateKey]);
+        const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
+
+        try {
+          const result = await api.transact({
+            actions: [{
+              account: "cogneos",
+              name: 'enrollcourse',
+              authorization: [{
+                actor: 'cogneos',
+                permission: 'active',
+              }],
+              data: {
+                user: 'cogneos',
+                std_id: 0,
+                course_id,
+              },
+            }]
+          }, {
+            blocksBehind: 3,
+            expireSeconds: 30,
+          });
+    
+          console.log(result);
+          this.getTable();
+        } catch (e) {
+          console.log('Caught exception: ' + e);
+          if (e instanceof RpcError) {
+            console.log(JSON.stringify(e.json, null, 2));
+          }
+        }
   }
 
   // generic function to handle form events (e.g. "submit" / "reset")
@@ -128,77 +224,21 @@ class Index extends Component {
 
   render() {
     const { noteTable } = this.state;
-    const { classes } = this.props;
 
-    console.log(noteTable)
-    // generate each note as a card
-    const generateCard = (key, timestamp, user, note) => (
-      <Card className={classes.card} key={key}>
-        <CardContent>
-          <Typography variant="headline" component="h2">
-            {user}
-          </Typography>
-          <Typography style={{fontSize:12}} color="textSecondary" gutterBottom>
-            {new Date(timestamp*1000).toString()}
-          </Typography>
-          <Typography component="pre">
-            {note}
-          </Typography>
-        </CardContent>
-      </Card>
-    );
-    let noteCards = noteTable.map((row, i) =>
-      generateCard(i, row.timestamp, row.user, row.note));
+    let noteCards = noteTable.map((card) => this.generateCard(card));
+
+    console.log(noteTable);
 
     return (
       <div>
         <AppBar position="static" color="default">
           <Toolbar>
             <Typography variant="title" color="inherit">
-              Note Chain
+              CognEOS
             </Typography>
           </Toolbar>
         </AppBar>
         {noteCards}
-        <Paper className={classes.paper}>
-          <form onSubmit={this.handleFormEvent}>
-            <TextField
-              name="account"
-              autoComplete="off"
-              label="Account"
-              margin="normal"
-              fullWidth
-            />
-            <TextField
-              name="privateKey"
-              autoComplete="off"
-              label="Private key"
-              margin="normal"
-              fullWidth
-            />
-            <TextField
-              name="note"
-              autoComplete="off"
-              label="Note (Optional)"
-              margin="normal"
-              multiline
-              rows="10"
-              fullWidth
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.formButton}
-              type="submit">
-              Add / Update note
-            </Button>
-          </form>
-        </Paper>
-        <pre className={classes.pre}>
-          Below is a list of pre-created accounts information for add/update note:
-          <br/><br/>
-          accounts = { JSON.stringify(accounts, null, 2) }
-        </pre>
       </div>
     );
   }
