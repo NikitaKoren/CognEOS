@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sat Nov 10 23:27:44 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Nov 11 08:13:35 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -105,6 +105,20 @@
             ]
         },
         {
+            "name": "delstdcourse",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                },
+                {
+                    "name": "stdcourseid",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
             "name": "enrollcourse",
             "base": "",
             "fields": [
@@ -181,6 +195,64 @@
                     "type": "uint64"
                 }
             ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "addcourse",
+            "type": "addcourse",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "addstudent",
+            "type": "addstudent",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "addteacher",
+            "type": "addteacher",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "coursecomp",
+            "type": "coursecomp",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "deletecourse",
+            "type": "deletecourse",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "delstdcourse",
+            "type": "delstdcourse",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "enrollcourse",
+            "type": "enrollcourse",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "markcompleted",
+            "type": "markcompleted",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "sponsorcheck",
+            "type": "sponsorcheck",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "teachercheck",
+            "type": "teachercheck",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "updatetotava",
+            "type": "updatetotava",
+            "ricardian_contract": ""
         },
         {
             "name": "studentstb",
@@ -320,59 +392,6 @@
                     "type": "uint64"
                 }
             ]
-        }
-    ],
-    "types": [],
-    "actions": [
-        {
-            "name": "addcourse",
-            "type": "addcourse",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "addstudent",
-            "type": "addstudent",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "addteacher",
-            "type": "addteacher",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "coursecomp",
-            "type": "coursecomp",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "deletecourse",
-            "type": "deletecourse",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "enrollcourse",
-            "type": "enrollcourse",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "markcompleted",
-            "type": "markcompleted",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "sponsorcheck",
-            "type": "sponsorcheck",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "teachercheck",
-            "type": "teachercheck",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "updatetotava",
-            "type": "updatetotava",
-            "ricardian_contract": ""
         }
     ],
     "tables": [

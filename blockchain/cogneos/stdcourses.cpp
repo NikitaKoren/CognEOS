@@ -47,6 +47,14 @@ public:
         });
     }
 
+    void delstdcourse(eosio::name user, uint64_t stdcourseid)
+    {
+        require_auth(user);
+        auto iterator = _stdcourses.find( stdcourseid );
+        eosio_assert(iterator != _stdcourses.end(), "Course does not exist");
+        _stdcourses.erase(iterator);
+    }
+
 private:
     stdcoursestb_index _stdcourses;
 };
